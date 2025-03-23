@@ -1,0 +1,1 @@
+# core game-loop logic - snake movements, collision checks, turning mechanics.
