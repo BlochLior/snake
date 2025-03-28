@@ -1,11 +1,18 @@
 # core game-loop logic - snake movements, collision checks, turning mechanics.
-from game import pygame, SCREEN_DIMENSIONS, FRAMERATE
-from snake import Snake
-from food import Food
+from game.constants import *
+from game.snake import Snake
+from game.food import Food
 
 def game_loop():
+    screen = pygame.display.set_mode(SCREEN_DIMENSIONS)
+    screen.fill(COLOR_BLACK)
+    pygame.draw.rect(screen, COLOR_BLUE, SQUARE_CENTER_DIMENSIONS, 2)
+    pygame.display.set_caption("Snake")
+    pygame.display.update()
+    framerate_clock = pygame.time.Clock()
     snake = Snake() # will remove later on, snake init will be in main
-    food = Food() # food initialization - not sure if will be here or in main
+    food1 = Food() # food initialization - not sure if will be here or in main
+    food2 = Food()
     running = True
     while running:
         # --- Process input ---
@@ -26,12 +33,11 @@ def game_loop():
         # --- Update snake logic ---
         snake.move()
         # --- Check collision logic if needed ---
-        if snake.head.position == food.position:
-            food.respawn()
-        # --- Draw the frame ---
-        screen = pygame.display.set_mode(SCREEN_DIMENSIONS) # will be a var inside main.py, to be removed then
-        framerate_clock = pygame.time.Clock() # var inside main.py, will be removed
-        
+        if snake.head.position == food1.position:
+            food1.respawn()
+        elif snake.head.position == food2.position:
+            food2.respawn()
+        # --- Draw the frame ---       
         screen.fill((0,0,0)) # screen cleared
         snake.draw_snake(screen) # draw snake
         # food to be drawn and other objects to be drawn here

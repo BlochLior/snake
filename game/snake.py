@@ -1,6 +1,6 @@
 # snake movement, growth and turning mechanics; snake logic
-from game import pygame
-from game import SNAKE_SPEED, COLOR_PINK
+from game.constants import pygame
+from game.constants import SNAKE_SPEED, COLOR_PINK
 
 class SnakeSegment(pygame.sprite.Sprite):
     def __init__(self, position, segment_before=None, segment_after=None, is_head=False, is_tail=False):
@@ -12,7 +12,7 @@ class SnakeSegment(pygame.sprite.Sprite):
         self.position = position
 
 class Snake(SnakeSegment):
-    def __init__(self, score, direction=(0, -1), speed=SNAKE_SPEED):
+    def __init__(self, score=0, direction=(0, -1), speed=SNAKE_SPEED):
         self.head = SnakeSegment(is_head=True, position=(100, 100))
         self.tail = SnakeSegment(is_tail=True, position=(100, 110))
         self.segments = [self.head, self.tail]

@@ -1,8 +1,8 @@
 # food gen logic - spawning at random locs at the grid once eaten. and startup with x foods.
 import random
 import pygame
-from game import SCREEN_DIMENSIONS, COLOR_RED
-from snake import Snake
+from game.constants import SCREEN_DIMENSIONS, COLOR_RED
+from game.snake import Snake
 
 class Food(pygame.sprite.Sprite):
     def __init__(self):
