@@ -1,6 +1,7 @@
 # snake movement, growth and turning mechanics; snake logic
 from game.constants import pygame
 from game.constants import SNAKE_SPEED, COLOR_PINK
+from game.food import Food
 
 class SnakeSegment(pygame.sprite.Sprite):
     def __init__(self, position, segment_before=None, segment_after=None, is_head=False, is_tail=False):
@@ -19,16 +20,16 @@ class Snake(SnakeSegment):
         self.segment_count = len(self.segments)
         self.speed = speed
         self.score = score
-        self.direction = direction
+        self.direction = (direction[0] * self.speed, direction[1] * self.speed)
         self.update_segment_position()
-    
+
     def move(self):
         # store the positions of all existing segments:
         previous_positions = [segment.position for segment in self.segments]
 
         # move head in current direction:
-        new_x = self.head.position[0] + self.direction[0]
-        new_y = self.head.position[1] + self.direction[1]
+        new_x = self.head.position[0] + self.direction[0] * self.speed
+        new_y = self.head.position[1] + self.direction[1] * self.speed
         self.head.position = (new_x, new_y)
 
         for i in range(1, len(self.segments)):
@@ -71,9 +72,10 @@ class Snake(SnakeSegment):
         self.segments.append(SnakeSegment(position=new_position))
         self.update_segment_position()
 
-    def check_food_colision(self, food):
-        if self.head.position == food.position:
-            self.add_segment()
-            self.score += 1
-            return True
+    def check_self_collision(self):
+        head = self.head.position
+        for segment in self.segments[1:]:
+            distance = abs(head[0] - segment.position[0]) + abs(head[1] - segment.position[1])
+            if distance == 0:
+                return True
         return False

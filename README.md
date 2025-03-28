@@ -1,4 +1,4 @@
 # snake
+basic snake game, nothing too fancy. i think requirements are only pygame installed and python3.
 
-assets:
-snakehead - from craftpix free game assets.
+to be added: better assets, high score memory, food automatic removal and respawn, more obstacles.
