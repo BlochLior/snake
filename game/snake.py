@@ -70,3 +70,10 @@ class Snake(SnakeSegment):
         new_position = self.tail.position
         self.segments.append(SnakeSegment(position=new_position))
         self.update_segment_position()
+
+    def check_food_colision(self, food):
+        if self.head.position == food.position:
+            self.add_segment()
+            self.score += 1
+            return True
+        return False

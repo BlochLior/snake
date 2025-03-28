@@ -1,4 +1,5 @@
 import pygame
+import random
 
 PACKAGE_NAME = "MySnakeGame"
 AUTHOR = "Lior"
